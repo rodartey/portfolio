@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosemond Oye Dartey — Information Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF1F4;
+    --bg-panel: #FFFFFF;
+    --ink: #121820;
+    --ink-soft: #4A5568;
+    --line: #D7DDE4;
+    --signal: #3557E8;
+    --signal-soft: #EAEEFC;
+    --amber: #E0803F;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(238,241,244,0.88);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .nav-name{
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .nav-links{
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .nav-links a:hover{ color: var(--signal); }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding: 92px 0 76px;
+    position: relative;
+  }
+  .hero-kicker{
+    font-size: 14px;
+    color: var(--signal);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.05;
+    max-width: 11ch;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 52ch;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .hero-actions{
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display: inline-block;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius);
+    border: 1px solid var(--ink);
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .btn.primary{
+    background: var(--ink);
+    color: var(--bg-panel);
+  }
+  .btn.primary:hover{ background: var(--signal); border-color: var(--signal); }
+  .btn.ghost{
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  .btn.ghost:hover{ border-color: var(--ink); }
+
+  .hero-path{
+    position: absolute;
+    right: 28px;
+    top: 100px;
+    width: 220px;
+    height: 220px;
+    opacity: 0.9;
+  }
+  .hero-path path{
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 1.6;
+    stroke-dasharray: 620;
+    stroke-dashoffset: 620;
+    animation: draw 1.8s ease forwards 0.3s;
+  }
+  .hero-path circle{
+    fill: var(--signal);
+    opacity: 0;
+    animation: dotfade 0.4s ease forwards 1.9s;
+  }
+  @keyframes draw{ to { stroke-dashoffset: 0; } }
+  @keyframes dotfade{ to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce){
+    .hero-path path{ animation: none; stroke-dashoffset: 0; }
+    .hero-path circle{ animation: none; opacity: 1; }
+  }
+  @media (max-width: 760px){ .hero-path{ display:none; } }
+
+  /* ---------- Section shell ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--line); }
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 34px;
+  }
+  .section-head h2{ font-size: 26px; }
+  .section-num{ font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+  }
+  .about-grid p{ color: var(--ink-soft); max-width: 56ch; }
+  .about-grid p + p{ margin-top: 14px; }
+  .facts{ display: flex; flex-direction: column; gap: 16px; }
+  .fact dt{ font-size: 13px; color: var(--ink-soft); }
+  .fact dd{ font-size: 15px; margin-top: 2px; }
+  @media (max-width: 700px){ .about-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Skills ---------- */
+  .skill-row{
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .skill-row:first-of-type{ border-top: none; }
+  .skill-row .label{ font-size: 14px; color: var(--ink-soft); padding-top: 3px; }
+  .tag-list{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag{
+    font-size: 14px;
+    padding: 6px 12px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  /* ---------- Projects ---------- */
+  .project{
+    padding: 34px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .project:first-of-type{ border-top: none; }
+  .project-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .project h3{ font-size: 21px; }
+  .project-role{ font-size: 13px; color: var(--signal); font-weight: 500; }
+  .project p{ color: var(--ink-soft); max-width: 66ch; }
+  .project-tags{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .project-tags span{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    background: var(--signal-soft);
+    padding: 4px 10px;
+    border-radius: var(--radius);
+  }
+  .project-links{ display: flex; gap: 18px; margin-top: 6px; font-size: 14px; }
+  .project-links a{ color: var(--signal); border-bottom: 1px solid transparent; }
+  .project-links a:hover{ border-bottom-color: var(--signal); }
+
+  /* ---------- Contact ---------- */
+  .contact-block h2{ font-size: 30px; max-width: 16ch; }
+  .contact-block p{ margin-top: 16px; color: var(--ink-soft); max-width: 50ch; }
+  .contact-rows{ margin-top: 30px; display: flex; flex-direction: column; gap: 10px; }
+  .contact-rows a, .contact-rows span{
+    font-size: 16px;
+    display: inline-block;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-rows a:hover{ border-bottom-color: var(--signal); color: var(--signal); }
+
+  footer{
+    padding: 30px 0 50px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  ::selection{ background: var(--signal-soft); color: var(--ink); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">Rosemond Oye Dartey</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-kicker">Information Technology</div>
+    <h1>Building systems that keep people connected and organized.</h1>
+    <p class="lede">I'm an Information Technology student who enjoys turning everyday processes — like managing internships or student records — into software that's simple to use and reliable to run.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">View my projects</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <svg class="hero-path" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 40 L20 120 L100 120 L100 200 L200 200"/>
+    <path d="M20 40 L120 40 L120 90 L190 90"/>
+    <circle cx="20" cy="40" r="4"/>
+    <circle cx="200" cy="200" r="4"/>
+    <circle cx="190" cy="90" r="4"/>
+  </svg>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="section-num">01</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I study Information Technology with a focus on building practical tools for real institutional problems — from internship placement to student records management. I like working across the stack: designing the database, wiring up the logic, and making sure the interface stays out of the user's way.</p>
+        <p>I'm currently looking for internship and entry-level opportunities where I can contribute to a team, learn from experienced engineers, and keep building systems people actually rely on.</p>
+      </div>
+      <dl class="facts">
+        <div class="fact">
+          <dt>Field</dt>
+          <dd>Information Technology</dd>
+        </div>
+        <div class="fact">
+          <dt>Focus</dt>
+          <dd>Web systems & database-driven applications</dd>
+        </div>
+        <div class="fact">
+          <dt>Looking for</dt>
+          <dd>Internships & entry-level IT roles</dd>
+        </div>
+        <div class="fact">
+          <dt>Location</dt>
+          <dd>Sunyani, Ghana</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="section-num">02</span>
+    </div>
+    <div class="skill-row">
+      <div class="label">Languages</div>
+      <div class="tag-list">
+        <span class="tag">HTML & CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">PHP</span>
+        <span class="tag">Java</span>
+        <span class="tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="label">Tools & platforms</div>
+      <div class="tag-list">
+        <span class="tag">MySQL</span>
+        <span class="tag">Git & GitHub</span>
+        <span class="tag">XAMPP</span>
+        <span class="tag">Figma</span>
+        <span class="tag">Microsoft Office</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="label">Practices</div>
+      <div class="tag-list">
+        <span class="tag">Database design</span>
+        <span class="tag">System analysis</span>
+        <span class="tag">Team collaboration</span>
+        <span class="tag">Technical documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="section-num">03</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>InternConnect</h3>
+        <span class="project-role">Internship Management Platform</span>
+      </div>
+      <p>A platform that connects students with internship opportunities and helps institutions manage placements from one place — covering applications, employer listings, and status tracking so nothing gets lost in email threads and spreadsheets.</p>
+      <div class="project-tags">
+        <span>Web application</span>
+        <span>Database design</span>
+        <span>Admin dashboard</span>
+      </div>
+      <div class="project-links">
+        <a href="https://intern-connect-one.vercel.app/" target="_blank" rel="noopener">View live demo →</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>Student Management System</h3>
+        <span class="project-role">Records & Administration</span>
+      </div>
+      <p>A system built to organize student records, academic data, and administrative workflows in one structured database, replacing manual, paper-based record keeping with something searchable and easy to maintain.</p>
+      <div class="project-tags">
+        <span>Database design</span>
+        <span>CRUD system</span>
+        <span>User accounts</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/entaadu1/java" target="_blank" rel="noopener">Source code →</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>KNUST Library Management System</h3>
+        <span class="project-role">Library Records & Circulation</span>
+      </div>
+      <p>A system built for KNUST to manage library operations — cataloguing books, tracking borrowing and returns, and keeping records of members — cutting down on manual logbooks and making it easy to see what's available at a glance.</p>
+      <div class="project-tags">
+        <span>Database design</span>
+        <span>CRUD system</span>
+        <span>Circulation tracking</span>
+      </div>
+      <div class="project-links">
+        <a href="https://lib-mgmt-system.onrender.com" target="_blank" rel="noopener">View live demo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-block">
+    <h2>Let's work together.</h2>
+    <p>I'm open to internships and entry-level IT roles — reach out if you'd like to talk about an opportunity or see more of my work.</p>
+    <div class="contact-rows">
+      <a href="mailto:rarianadartey@gmail.com">rarianadartey@gmail.com</a>
+      <span>0540 572 560</span>
+      <a href="https://www.linkedin.com/in/rosemond-dartey" target="_blank" rel="noopener">linkedin.com/in/rosemond-dartey</a>
+      <a href="https://github.com/rodartey" target="_blank" rel="noopener">github.com/rodartey</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>Rosemond Oye Dartey</span>
+    <span>Information Technology</span>
+  </div>
+</footer>
+
+</body>
+</html>
